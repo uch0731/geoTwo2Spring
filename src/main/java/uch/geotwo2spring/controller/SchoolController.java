@@ -27,8 +27,14 @@ public class SchoolController {
     }
 
     //지역 이름을 입력받아 해당 지역의 초등학교 데이터를 보여주는 메서드
-    @GetMapping("/{regionName}/schools")
+    @GetMapping("/{regionName}/school")
     public List<ElemSchoolDto> getElemSchoolsByRegion(@PathVariable String regionName) {
         return elemSchoolDataService.getElemSchoolsByRegion(regionName);
+    }
+
+    //학교 이름과 지역이름을 입력받아 학교가 위치한 곳이 해당 지역인지 알려주는 메서드
+    @GetMapping("/{schoolName}/{regionName}/check")
+    public boolean checkSchoolRegion(@PathVariable String schoolName, @PathVariable String regionName) {
+        return elemSchoolDataService.checkSchoolRegion(schoolName, regionName);
     }
 }

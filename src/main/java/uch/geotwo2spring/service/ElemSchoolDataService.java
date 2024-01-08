@@ -38,4 +38,9 @@ public class ElemSchoolDataService {
 
         return makeEntityListtoDtoList(elemSchoolDataArrayList);
     }
+
+    public boolean checkSchoolRegion(String schoolName, String regionName) {
+        List<Boolean> check = elemSchoolDataRepository.checkSchoolRegion(schoolName, regionName);
+        return check.get(0);
+    }
 }
