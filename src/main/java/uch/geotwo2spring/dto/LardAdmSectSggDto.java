@@ -2,7 +2,6 @@ package uch.geotwo2spring.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import uch.geotwo2spring.entity.ElemSchoolData;
 import uch.geotwo2spring.entity.LardAdmSectSgg;
 
 @Data

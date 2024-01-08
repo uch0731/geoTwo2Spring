@@ -1,7 +1,6 @@
 package uch.geotwo2spring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import uch.geotwo2spring.dto.ElemSchoolDto;
 import uch.geotwo2spring.dto.LardAdmSectSggDto;
@@ -23,15 +22,25 @@ public class LardAdmSectSggService {
         this.lardAdmSectSggRepository = lardAdmSectSggRepository;
     }
 
-    public List<LardAdmSectSggDto> showRegions() {
-        List<LardAdmSectSgg> lardAdmSectSggArrayList = lardAdmSectSggRepository.findAll();
+    public List<LardAdmSectSggDto> makeEntityListtoDtoList(List<LardAdmSectSgg> LardAdmSectSggArrayList) {
         List<LardAdmSectSggDto> lardAdmSectSggDtoArrayList = new ArrayList<>();
 
-        for (int i = 0; i < lardAdmSectSggArrayList.size(); i++) {
-            lardAdmSectSggDtoArrayList.add(LardAdmSectSggDto.toDTO(lardAdmSectSggArrayList.get(i)));
+        for (int i = 0; i < LardAdmSectSggArrayList.size(); i++) {
+            lardAdmSectSggDtoArrayList.add(LardAdmSectSggDto.toDTO(LardAdmSectSggArrayList.get(i)));
         }
 
         return lardAdmSectSggDtoArrayList;
     }
 
+    public List<LardAdmSectSggDto> showRegions() {
+        List<LardAdmSectSgg> lardAdmSectSggArrayList = lardAdmSectSggRepository.findAll();
+
+        return makeEntityListtoDtoList(lardAdmSectSggArrayList);
+    }
+
+    public List<LardAdmSectSggDto> getRegionBySchool(String schoolName) {
+        List<LardAdmSectSgg> lardAdmSectSggArrayList = lardAdmSectSggRepository.findIntersectingRegionsBySchoolName(schoolName);
+
+        return makeEntityListtoDtoList(lardAdmSectSggArrayList);
+    }
 }
