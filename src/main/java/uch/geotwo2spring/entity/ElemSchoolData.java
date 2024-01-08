@@ -7,15 +7,24 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKTReader;
+import uch.geotwo2spring.dto.ElemSchoolDto;
 
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "elemschooldata")
 
 public class ElemSchoolData {
@@ -34,9 +43,16 @@ public class ElemSchoolData {
     @Column(name = "latitude")
     private Double latitude;
 
-    @JsonIgnore
     @Column(name = "the_geom", columnDefinition = "geometry(Point, 4326)")
-    private Point the_geom;
+    private Geometry the_geom;
 
-    // 생성자, Getter 및 Setter 메서드
+    public static ElemSchoolData toEntity(ElemSchoolDto dto) throws ParseException {
+        return ElemSchoolData.builder()
+                .gid(dto.getGid())
+                .schoolName(dto.getSchoolName())
+                .longitude(dto.getLongitude())
+                .latitude(dto.getLatitude())
+                .the_geom(new WKTReader().read(dto.getThe_geom()))
+                .build();
+    }
 }
