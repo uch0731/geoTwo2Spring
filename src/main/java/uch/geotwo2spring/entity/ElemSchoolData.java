@@ -35,7 +35,7 @@ public class ElemSchoolData {
     private Long gid;
 
     @Column(name = "school_nm")
-    private String schoolName;
+    private String school_nm;
 
     @Column(name = "longitude")
     private Double longitude;
@@ -49,7 +49,7 @@ public class ElemSchoolData {
     public static ElemSchoolData toEntity(ElemSchoolDto dto) throws ParseException {
         return ElemSchoolData.builder()
                 .gid(dto.getGid())
-                .schoolName(dto.getSchoolName())
+                .school_nm(dto.getSchoolName())
                 .longitude(dto.getLongitude())
                 .latitude(dto.getLatitude())
                 .the_geom(new WKTReader().read(dto.getThe_geom()))

@@ -24,7 +24,7 @@ public class ElemSchoolDto {
     public static ElemSchoolDto toDTO(ElemSchoolData entity) {
         return ElemSchoolDto.builder()
                 .gid(entity.getGid())
-                .schoolName(entity.getSchoolName())
+                .schoolName(entity.getSchool_nm())
                 .longitude(entity.getLongitude())
                 .latitude(entity.getLatitude())
                 .the_geom(entity.getThe_geom().toString())
