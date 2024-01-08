@@ -7,13 +7,22 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKTReader;
+import uch.geotwo2spring.dto.LardAdmSectSggDto;
 
-@Getter
-@Setter
+@Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "lard_adm_sect_sgg")
 public class LardAdmSectSgg {
 
@@ -22,9 +31,8 @@ public class LardAdmSectSgg {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gid;
 
-    @JsonIgnore
     @Column(name = "the_geom", columnDefinition = "geometry(MultiPolygon, 4326)")
-    private Geometry geometry;
+    private Geometry the_geom;
 
     @Column(name = "adm_sect_c")
     private String admSectC;
@@ -35,5 +43,13 @@ public class LardAdmSectSgg {
     @Column(name = "col_adm_se")
     private String colAdmSe;
 
-    // 생성자, Getter 및 Setter 메서드
+    public static LardAdmSectSgg toEntity(LardAdmSectSggDto dto) throws ParseException {
+        return LardAdmSectSgg.builder()
+                .gid(dto.getGid())
+                .the_geom(new WKTReader().read(dto.getThe_geom()))
+                .admSectC(dto.getAdmSectC())
+                .sggNm(dto.getSggNm())
+                .colAdmSe(dto.getColAdmSe())
+                .build();
+    }
 }
