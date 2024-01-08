@@ -23,6 +23,7 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
@@ -34,7 +35,7 @@ dependencies {
     implementation 'org.postgresql:postgresql'
 
 // hibernate-spatial
-    implementation 'org.hibernate:hibernate-spatial:5.6.11.Final'
+    implementation group: 'org.hibernate.orm', name: 'hibernate-spatial', version: '6.4.1.Final'
 
 }
 
