@@ -9,6 +9,7 @@ import uch.geotwo2spring.entity.LardAdmSectSgg;
 import uch.geotwo2spring.repository.LardAdmSectSggRepository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -42,5 +43,12 @@ public class LardAdmSectSggService {
         List<LardAdmSectSgg> lardAdmSectSggArrayList = lardAdmSectSggRepository.findIntersectingRegionsBySchoolName(schoolName);
 
         return makeEntityListtoDtoList(lardAdmSectSggArrayList);
+    }
+
+    public HashMap<String, Double> getAreaByRegion(String sggNm) {
+        List<Double> area = lardAdmSectSggRepository.findAreaByRegion(sggNm);
+        HashMap<String, Double> areaMap = new HashMap<>();
+        areaMap.put(sggNm, area.get(0));
+        return areaMap;
     }
 }
