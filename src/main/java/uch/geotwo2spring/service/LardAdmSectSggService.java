@@ -51,4 +51,8 @@ public class LardAdmSectSggService {
         areaMap.put(sggNm, area.get(0));
         return areaMap;
     }
+
+    public void saveLardAdmSectSggData (LardAdmSectSgg lardAdmSectSggData) {
+        lardAdmSectSggRepository.save(lardAdmSectSggData);
+    }
 }

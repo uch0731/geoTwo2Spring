@@ -43,9 +43,9 @@ public class SchoolController {
         return elemSchoolDataService.checkSchoolRegion(schoolName, regionName);
     }
 
+    //학교정보를 post로 입력받아 db에 저장
     @PostMapping("/save/elemschool")
     public void saveElemSchool(@RequestBody ElemSchoolDto elemSchoolDto) throws ParseException {
-        System.out.println(elemSchoolDto.getSchoolName());
         elemSchoolDataService.saveElemSchoolData(ElemSchoolData.toEntity(elemSchoolDto));
     }
 }

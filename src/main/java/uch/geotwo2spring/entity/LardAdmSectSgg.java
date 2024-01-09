@@ -42,7 +42,6 @@ public class LardAdmSectSgg {
 
     public static LardAdmSectSgg toEntity(LardAdmSectSggDto dto) throws ParseException {
         return LardAdmSectSgg.builder()
-                .gid(dto.getGid())
                 .the_geom(new WKTReader().read(dto.getThe_geom()))
                 .admSectC(dto.getAdmSectC())
                 .sggNm(dto.getSggNm())
