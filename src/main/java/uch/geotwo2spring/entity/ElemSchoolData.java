@@ -44,7 +44,6 @@ public class ElemSchoolData {
 
     public static ElemSchoolData toEntity(ElemSchoolDto dto) throws ParseException {
         return ElemSchoolData.builder()
-                .gid(dto.getGid())
                 .school_nm(dto.getSchoolName())
                 .longitude(dto.getLongitude())
                 .latitude(dto.getLatitude())

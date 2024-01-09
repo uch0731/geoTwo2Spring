@@ -43,4 +43,8 @@ public class ElemSchoolDataService {
         List<Boolean> check = elemSchoolDataRepository.checkSchoolRegion(schoolName, regionName);
         return check.get(0);
     }
+
+    public void saveElemSchoolData(ElemSchoolData elemSchoolData) {
+        elemSchoolDataRepository.save(elemSchoolData);
+    }
 }
