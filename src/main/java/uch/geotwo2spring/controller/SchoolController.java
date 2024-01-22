@@ -1,12 +1,21 @@
 package uch.geotwo2spring.controller;
 
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.MultiPolygon;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKTReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import uch.geotwo2spring.dto.BuildingDto;
 import uch.geotwo2spring.dto.ElemSchoolDto;
 import uch.geotwo2spring.dto.LardAdmSectSggDto;
 import uch.geotwo2spring.entity.ElemSchoolData;
@@ -14,6 +23,7 @@ import uch.geotwo2spring.repository.ElemSchoolDataRepository;
 import uch.geotwo2spring.service.ElemSchoolDataService;
 import uch.geotwo2spring.service.LardAdmSectSggService;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -47,5 +57,36 @@ public class SchoolController {
     @PostMapping("/save/elemschool")
     public void saveElemSchool(@RequestBody ElemSchoolDto elemSchoolDto) throws ParseException {
         elemSchoolDataService.saveElemSchoolData(ElemSchoolData.toEntity(elemSchoolDto));
+    }
+
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
+    @PostMapping("/map/point/schools")
+    @ResponseBody
+    public List<ElemSchoolDto> getSchoolsInPointBuffer(@RequestBody double[] point) {
+        System.out.println(point[0] + " " + point[1]);
+        List<ElemSchoolDto> result = elemSchoolDataService.getSchoolsIntersects(point);
+
+        for(ElemSchoolDto elemSchoolDto : result) {
+            System.out.println(elemSchoolDto.getGid() + " " + elemSchoolDto.getSchoolName());
+        }
+
+        return result;
+    }
+
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
+    @PostMapping("/map/polygon/schools")
+    @ResponseBody
+    public List<ElemSchoolDto> getSchoolsInPolygon(@RequestBody double[][][] polygon) {
+        for(double[][] d : polygon) {
+            for (double[] dd : d) {
+                System.out.println(dd[0] + " " + dd[1]);
+            }
+        }
+        List<ElemSchoolDto> result = elemSchoolDataService.getSchoolsIntersects(polygon);
+        for(ElemSchoolDto elemSchoolDto : result) {
+            System.out.println(elemSchoolDto.getGid() + " " + elemSchoolDto.getSchoolName());
+        }
+
+        return result;
     }
 }

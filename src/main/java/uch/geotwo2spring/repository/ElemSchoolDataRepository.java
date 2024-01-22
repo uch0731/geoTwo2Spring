@@ -1,9 +1,11 @@
 package uch.geotwo2spring.repository;
 
+import org.locationtech.jts.geom.Polygon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import uch.geotwo2spring.entity.BuildingData;
 import uch.geotwo2spring.entity.ElemSchoolData;
 
 import java.util.List;
@@ -20,4 +22,7 @@ public interface ElemSchoolDataRepository extends JpaRepository<ElemSchoolData, 
             "FROM elemschooldata e, lard_adm_sect_sgg lass " +
             "WHERE e.school_nm = :schoolName AND lass.sgg_nm = :sggNm", nativeQuery = true)
     List<Boolean> checkSchoolRegion(@Param("schoolName") String schoolName, @Param("sggNm") String sggNm);
+
+    @Query(value = "SELECT * FROM elemschooldata WHERE ST_Intersects(the_geom, :polygon)", nativeQuery = true)
+    List<ElemSchoolData> findSchoolInPolygon(@Param("polygon") Polygon polygon);
 }
