@@ -63,30 +63,13 @@ public class SchoolController {
     @PostMapping("/map/point/schools")
     @ResponseBody
     public List<ElemSchoolDto> getSchoolsInPointBuffer(@RequestBody double[] point) {
-        System.out.println(point[0] + " " + point[1]);
-        List<ElemSchoolDto> result = elemSchoolDataService.getSchoolsIntersects(point);
-
-        for(ElemSchoolDto elemSchoolDto : result) {
-            System.out.println(elemSchoolDto.getGid() + " " + elemSchoolDto.getSchoolName());
-        }
-
-        return result;
+        return elemSchoolDataService.getSchoolsIntersects(point);
     }
 
     @CrossOrigin(origins = "http://127.0.0.1:5500")
     @PostMapping("/map/polygon/schools")
     @ResponseBody
     public List<ElemSchoolDto> getSchoolsInPolygon(@RequestBody double[][][] polygon) {
-        for(double[][] d : polygon) {
-            for (double[] dd : d) {
-                System.out.println(dd[0] + " " + dd[1]);
-            }
-        }
-        List<ElemSchoolDto> result = elemSchoolDataService.getSchoolsIntersects(polygon);
-        for(ElemSchoolDto elemSchoolDto : result) {
-            System.out.println(elemSchoolDto.getGid() + " " + elemSchoolDto.getSchoolName());
-        }
-
-        return result;
+        return elemSchoolDataService.getSchoolsIntersects(polygon);
     }
 }

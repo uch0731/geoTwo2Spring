@@ -68,14 +68,13 @@ public class ElemSchoolDataService {
     }
 
     public List<ElemSchoolDto> getSchoolsIntersects(double[][][] coordinates) {
-
         GeometryFactory geometryFactory = new GeometryFactory();
-
-        // 폴리곤 생성
         Coordinate[] polygonCoordinates = new Coordinate[coordinates[0].length];
+
         for (int i = 0; i < coordinates[0].length; i++) {
             polygonCoordinates[i] = new Coordinate(coordinates[0][i][0], coordinates[0][i][1]);
         }
+
         LinearRing linearRing = geometryFactory.createLinearRing(polygonCoordinates);
         Polygon polygon = geometryFactory.createPolygon(linearRing);
         polygon.setSRID(4326);
