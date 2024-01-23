@@ -2,6 +2,7 @@ package uch.geotwo2spring.service;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LinearRing;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,23 @@ public class BuildingDataService {
 
         System.out.println(buffer);
         List<BuildingData> buildingList = buildingDataRepository.findBuildingInPolygon(buffer);
+        return makeEntityListtoDtoList(buildingList);
+    }
+
+    public List<BuildingDto> getBuildingIntersects(double[][][] coordinates) {
+        GeometryFactory geometryFactory = new GeometryFactory();
+        Coordinate[] polygonCoordinates = new Coordinate[coordinates[0].length];
+
+        for (int i = 0; i < coordinates[0].length; i++) {
+            polygonCoordinates[i] = new Coordinate(coordinates[0][i][0], coordinates[0][i][1]);
+        }
+
+        LinearRing linearRing = geometryFactory.createLinearRing(polygonCoordinates);
+        Polygon polygon = geometryFactory.createPolygon(linearRing);
+        polygon.setSRID(4326);
+
+        System.out.println(polygon);
+        List<BuildingData> buildingList = buildingDataRepository.findBuildingInPolygon(polygon);
         return makeEntityListtoDtoList(buildingList);
     }
 }

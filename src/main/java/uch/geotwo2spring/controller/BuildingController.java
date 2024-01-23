@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import uch.geotwo2spring.dto.BuildingDto;
+import uch.geotwo2spring.dto.ElemSchoolDto;
 import uch.geotwo2spring.service.BuildingDataService;
 
 import java.util.List;
@@ -29,13 +30,13 @@ public class BuildingController {
     @PostMapping("/map/point/buildings")
     @ResponseBody
     public List<BuildingDto> getBuildingInPointBuffer(@RequestBody double[] point) {
-        System.out.println(point[0] + " " + point[1]);
-        List<BuildingDto> result = buildingDataService.getBuildingIntersects(point);
+        return buildingDataService.getBuildingIntersects(point);
+    }
 
-        for(BuildingDto buildingDto : result) {
-            System.out.println(buildingDto.getGid() + " " + buildingDto.getBuildingName());
-        }
-
-        return result;
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
+    @PostMapping("/map/polygon/buildings")
+    @ResponseBody
+    public List<BuildingDto> getBuildingInPolygon(@RequestBody double[][][] polygon) {
+        return buildingDataService.getBuildingIntersects(polygon);
     }
 }
