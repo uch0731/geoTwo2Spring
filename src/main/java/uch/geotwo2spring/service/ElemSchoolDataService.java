@@ -56,7 +56,7 @@ public class ElemSchoolDataService {
     }
 
     public List<ElemSchoolDto> getSchoolsIntersects(double[] coordinates) {
-        double bufferDistance = 0.001;
+        double bufferDistance = 0.005;
         GeometryFactory geometryFactory = new GeometryFactory();
         Point target = geometryFactory.createPoint(new Coordinate(coordinates[0], coordinates[1]));
         Polygon buffer = (Polygon) target.buffer(bufferDistance);

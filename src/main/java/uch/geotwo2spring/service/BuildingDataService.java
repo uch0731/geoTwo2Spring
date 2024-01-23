@@ -32,7 +32,7 @@ public class BuildingDataService {
         return buildingDtoArrayList;
     }
     public List<BuildingDto> getBuildingIntersects(double[] point) {
-        double bufferDistance = 0.001;
+        double bufferDistance = 0.0001;
         GeometryFactory geometryFactory = new GeometryFactory();
         Point target = geometryFactory.createPoint(new Coordinate(point[0], point[1]));
         Polygon buffer = (Polygon) target.buffer(bufferDistance);
