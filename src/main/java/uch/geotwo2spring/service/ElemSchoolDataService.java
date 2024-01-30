@@ -7,9 +7,7 @@ import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uch.geotwo2spring.dto.BuildingDto;
 import uch.geotwo2spring.dto.ElemSchoolDto;
-import uch.geotwo2spring.entity.BuildingData;
 import uch.geotwo2spring.entity.ElemSchoolData;
 import uch.geotwo2spring.repository.ElemSchoolDataRepository;
 

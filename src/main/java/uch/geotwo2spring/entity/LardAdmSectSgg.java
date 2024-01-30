@@ -28,9 +28,6 @@ public class LardAdmSectSgg {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gid;
 
-    @Column(name = "the_geom", columnDefinition = "geometry(MultiPolygon, 4326)")
-    private Geometry the_geom;
-
     @Column(name = "adm_sect_c")
     private String admSectC;
 
@@ -40,12 +37,15 @@ public class LardAdmSectSgg {
     @Column(name = "col_adm_se")
     private String colAdmSe;
 
+    @Column(name = "the_geom", columnDefinition = "geometry(MultiPolygon, 4326)")
+    private Geometry the_geom;
+
     public static LardAdmSectSgg toEntity(LardAdmSectSggDto dto) throws ParseException {
         return LardAdmSectSgg.builder()
-                .the_geom(new WKTReader().read(dto.getThe_geom()))
                 .admSectC(dto.getAdmSectC())
                 .sggNm(dto.getSggNm())
                 .colAdmSe(dto.getColAdmSe())
+                .the_geom(new WKTReader().read(dto.getThe_geom()))
                 .build();
     }
 }

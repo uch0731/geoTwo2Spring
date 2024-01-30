@@ -2,9 +2,7 @@ package uch.geotwo2spring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uch.geotwo2spring.dto.ElemSchoolDto;
 import uch.geotwo2spring.dto.LardAdmSectSggDto;
-import uch.geotwo2spring.entity.ElemSchoolData;
 import uch.geotwo2spring.entity.LardAdmSectSgg;
 import uch.geotwo2spring.repository.LardAdmSectSggRepository;
 
@@ -41,7 +39,6 @@ public class LardAdmSectSggService {
 
     public List<LardAdmSectSggDto> getRegionBySchool(String schoolName) {
         List<LardAdmSectSgg> lardAdmSectSggArrayList = lardAdmSectSggRepository.findIntersectingRegionsBySchoolName(schoolName);
-
         return makeEntityListtoDtoList(lardAdmSectSggArrayList);
     }
 

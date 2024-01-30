@@ -2,12 +2,13 @@ package uch.geotwo2spring.controller;
 
 import org.locationtech.jts.io.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import uch.geotwo2spring.dto.ElemSchoolDto;
 import uch.geotwo2spring.dto.LardAdmSectSggDto;
 import uch.geotwo2spring.entity.LardAdmSectSgg;
 import uch.geotwo2spring.service.LardAdmSectSggService;
@@ -32,8 +33,11 @@ public class RegionController {
     }
 
     //학교 데이터를 입력받아 학교가 속한 지역을 알려주는 메서드
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
     @GetMapping("/{schoolName}/region")
+    @ResponseBody
     public List<LardAdmSectSggDto> getRegionBySchool(@PathVariable String schoolName) {
+        System.out.println("컨트롤러" + lardAdmSectSggService.getRegionBySchool(schoolName));
         return lardAdmSectSggService.getRegionBySchool(schoolName);
     }
 

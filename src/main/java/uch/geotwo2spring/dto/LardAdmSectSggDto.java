@@ -8,26 +8,27 @@ import uch.geotwo2spring.entity.LardAdmSectSgg;
 @Builder
 public class LardAdmSectSggDto {
     private Long gid;
-    private String the_geom;
     private String admSectC;
     private String sggNm;
     private String colAdmSe;
+    private String the_geom;
 
-    public LardAdmSectSggDto(Long gid, String the_geom, String admSectC, String sggNm, String colAdmSe) {
+    public LardAdmSectSggDto(Long gid, String admSectC, String sggNm, String colAdmSe, String the_geom) {
         this.gid = gid;
-        this.the_geom = the_geom;
         this.admSectC = admSectC;
         this.sggNm = sggNm;
         this.colAdmSe = colAdmSe;
+        this.the_geom = the_geom;
     }
 
     public static LardAdmSectSggDto toDTO(LardAdmSectSgg entity) {
         return LardAdmSectSggDto.builder()
                 .gid(entity.getGid())
-                .the_geom(entity.getThe_geom().toString())
                 .admSectC(entity.getAdmSectC())
                 .sggNm(entity.getSggNm())
                 .colAdmSe(entity.getColAdmSe())
+                .the_geom(entity.getThe_geom().toString())
                 .build();
     }
+
 }
