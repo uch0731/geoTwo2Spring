@@ -1,5 +1,10 @@
 package uch.geotwo2spring.service;
 
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LinearRing;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.Polygon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uch.geotwo2spring.dto.LardAdmSectSggDto;
@@ -51,5 +56,30 @@ public class LardAdmSectSggService {
 
     public void saveLardAdmSectSggData (LardAdmSectSgg lardAdmSectSggData) {
         lardAdmSectSggRepository.save(lardAdmSectSggData);
+    }
+
+    public List<LardAdmSectSggDto> getRegionIntersects(double[] coordinates) {
+        GeometryFactory geometryFactory = new GeometryFactory();
+        Point target = geometryFactory.createPoint(new Coordinate(coordinates[0], coordinates[1]));
+        target.setSRID(4326);
+        List<LardAdmSectSgg> regionList = lardAdmSectSggRepository.findRegionIntersects(target);
+        return makeEntityListtoDtoList(regionList);
+    }
+
+    public List<LardAdmSectSggDto> getRegionIntersects(double[][][] coordinates) {
+        GeometryFactory geometryFactory = new GeometryFactory();
+        Coordinate[] polygonCoordinates = new Coordinate[coordinates[0].length];
+
+        for (int i = 0; i < coordinates[0].length; i++) {
+            polygonCoordinates[i] = new Coordinate(coordinates[0][i][0], coordinates[0][i][1]);
+        }
+
+        LinearRing linearRing = geometryFactory.createLinearRing(polygonCoordinates);
+        Polygon polygon = geometryFactory.createPolygon(linearRing);
+        polygon.setSRID(4326);
+
+        System.out.println(polygon);
+        List<LardAdmSectSgg> regionList = lardAdmSectSggRepository.findRegionIntersects(polygon);
+        return makeEntityListtoDtoList(regionList);
     }
 }

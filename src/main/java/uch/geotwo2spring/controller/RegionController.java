@@ -53,4 +53,16 @@ public class RegionController {
         System.out.println(lardAdmSectSggDto.toString());
         lardAdmSectSggService.saveLardAdmSectSggData(LardAdmSectSgg.toEntity(lardAdmSectSggDto));
     }
+
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
+    @PostMapping("/map/point/regions")
+    public List<LardAdmSectSggDto> getRegionContainPoint(@RequestBody double[] point) {
+        return lardAdmSectSggService.getRegionIntersects(point);
+    }
+
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
+    @PostMapping("/map/polygon/regions")
+    public List<LardAdmSectSggDto> getRegionContainPolygon(@RequestBody double[][][] polygon) {
+        return lardAdmSectSggService.getRegionIntersects(polygon);
+    }
 }
